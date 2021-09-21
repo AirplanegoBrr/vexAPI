@@ -1,0 +1,25 @@
+{
+  "name": "@airplanegobrr/vexapi",
+  "version": "1.0.0",
+  "description": "vexAPI for vex events and stuff!",
+  "main": "vexAPI.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AirplanegoBrr/vexAPI.git"
+  },
+  "keywords": [
+    "VEX",
+    "VEXAPI",
+    "robotevents",
+    "vexrobotics"
+  ],
+  "author": "AirplaneGoBrr",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/AirplanegoBrr/vexAPI/issues"
+  },
+  "homepage": "https://github.com/AirplanegoBrr/vexAPI#readme"
+}
