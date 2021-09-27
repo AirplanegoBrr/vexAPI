@@ -26,4 +26,4 @@ ap.team(93708).then(data => {
 
 ### Plans
 
-- [] Make it so you can add querys
+- [ ] Make it so you can add querys
