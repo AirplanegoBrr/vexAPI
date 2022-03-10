@@ -1,74 +1,95 @@
 var url = "https://www.robotevents.com/api/v2/";
 var ap = require("./vexAPI.fetch")
 
+var swagger = require("./swagger.json");
+
 module.exports = {
     //Events
     async init(token) {
         ap.init(token)
     },
-    async events() {
-        return await ap.fetch(url+"/events")
+    swagger,
+    async events(__query) {
+        if (!__query) { __query = "" };
+        return await ap.fetch(url+"/events" + __query)
     },
-    async event(id) {
-        return await ap.fetch(url + "/events/" + id)
+    async event(id, __query) {
+        if (!__query) { __query = "" };
+        return await ap.fetch(url + "/events/" + id + __query)
     },
-    async event_teams(id) {
-        return await ap.fetch(url + "/events/" + id + "/teams")
+    async event_teams(id, __query) {
+        if (!__query) { __query = "" };
+        return await ap.fetch(url + "/events/" + id + "/teams" + __query)
     },
-    async event_skills(id) {
-        return await ap.fetch(url + "/events/" + id + "/skills")
+    async event_skills(id, __query) {
+        if (!__query) { __query = "" }
+        return await ap.fetch(url + "/events/" + id + "/skills" + __query)
     },
-    async event_awards(id) {
-        return await ap.fetch(url + "/events/" + id + "/awards")
+    async event_awards(id, __query) {
+        if (!__query) { __query = "" }
+        return await ap.fetch(url + "/events/" + id + "/awards" + __query)
     },
-    async event_divisions(id, div) {
-        return await ap.fetch(url + "/events/" + id + "/divisions/" + div + "matches")
+    async event_divisions(id, div, __query) {
+        if (!__query) { __query = "" }
+        return await ap.fetch(url + "/events/" + id + "/divisions/" + div + "matches" + __query)
     },
-    async event_finalrankings(id) {
-        return await ap.fetch(url + "/events/" + id + "/divisions/" + div + "finalistRankings")
+    async event_finalrankings(id, __query) {
+        if (!__query) { __query = "" }
+        return await ap.fetch(url + "/events/" + id + "/divisions/" + div + "finalistRankings" + __query)
     },
-    async event_rankings(id) {
-        return await ap.fetch(url + "/events/" + id + "/divisions/" + div + "rankings")
+    async event_rankings(id, __query) {
+        if (!__query) { __query = "" }
+        return await ap.fetch(url + "/events/" + id + "/divisions/" + div + "rankings" + __query)
     },
     //Teams
-    async teams() {
-        return await ap.fetch(url + "/teams")
+    async teams(__query) {
+        if (!__query) { __query = "" }
+        return await ap.fetch(url + "/teams" + __query)
     },
-    async team(id) {
-        return await ap.fetch(url + "/teams/" + id)
+    async team(id, __query) {
+        if (!__query) { __query = "" }
+        return await ap.fetch(url + "/teams/" + id + __query)
     },
-    async team_events(id) {
-        return await ap.fetch(url + "/teams/" + id + "/events")
+    async team_events(id, __query) {
+        if (!__query) { __query = "" }
+        return await ap.fetch(url + "/teams/" + id + "/events" + __query)
     },
-    async team_matches(id) {
-        return await ap.fetch(url + "/teams/" + id + "/matches")
+    async team_matches(id, __query) {
+        if (!__query) { __query = "" }
+        return await ap.fetch(url + "/teams/" + id + "/matches" + __query)
     },
-    async team_rankings(id) {
-        return await ap.fetch(url + "/teams/" + id + "/rankings")
+    async team_rankings(id, __query) {
+        if (!__query) { __query = "" }
+        return await ap.fetch(url + "/teams/" + id + "/rankings" + __query)
     },
-    async team_skills(id) {
-        return await ap.fetch(url + "/teams/" + id + "/skills")
+    async team_skills(id, __query) {
+        if (!__query) { __query = "" }
+        return await ap.fetch(url + "/teams/" + id + "/skills" + __query)
     },
-    async team_awards(id) {
-        return await ap.fetch(url + "/teams/" + id + "/awards")
+    async team_awards(id, __query) {
+        if (!__query) { __query = "" }
+        return await ap.fetch(url + "/teams/" + id + "/awards" + __query)
     },
     //Programs
-    async programs() {
-        return await ap.fetch(url + "/programs")
+    async programs(__query) {
+        if (!__query) { __query = "" }
+        return await ap.fetch(url + "/programs" + __query)
     },
-    async program(id) {
-        return await ap.fetch(url + "/programs/" + id)
+    async program(id, __query) {
+        if (!__query) { __query = "" }
+        return await ap.fetch(url + "/programs/" + id + __query)
     },
     //Season
-    async season() {
-        return await ap.fetch(url + "/seasons")
+    async season(__query) {
+        if (!__query) { __query = "" }
+        return await ap.fetch(url + "/seasons" + __query)
     },
-    async seasons(id) {
-        return await ap.fetch(url + "/seasons/" + id)
+    async seasons(id, __query) {
+        if (!__query) { __query = "" }
+        return await ap.fetch(url + "/seasons/" + id + __query)
     },
-    async season_events(id) {
-        return await ap.fetch(url + "/seasons/" + id + "/events")
+    async season_events(id, __query) {
+        if (!__query) { __query = "" }
+        return await ap.fetch(url + "/seasons/" + id + "/events" + __query)
     }
-
-
 }
