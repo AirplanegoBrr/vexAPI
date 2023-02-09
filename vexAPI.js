@@ -1,95 +1,90 @@
-var url = "https://www.robotevents.com/api/v2/";
-var ap = require("./vexAPI.fetch")
+const baseURL = "https://www.robotevents.com/api/v2/"
+const axios = require("axios").default
 
-var swagger = require("./swagger.json");
+let api = null
+class API{
+    constructor(token){
+        api = axios.create({
+            baseURL: baseURL,
+            headers: {"Authorization": `Bearer ${token}`}
+        })
+    }
+
+    events = {
+            base(options = { id: [], sku: [], team: [], season: [], start: "", end: "", level: [], myEvents: false, eventTypes: []}){
+                return api.get(`/events?${new URLSearchParams(options).toString()}`)
+            },
+            ID(id){
+                return api.get(`/events/${id}?${new URLSearchParams(options).toString()}`)
+            },
+            teams(id, options = {number: [], registered: null, grade: [], country: [], myTeams: false}){
+                return api.get(`/events/${id}/teams?${new URLSearchParams(options).toString()}`)
+            },
+            skills(id, options = {team: [], type:[]}){
+                return api.get(`/events/${id}/skills?${new URLSearchParams(options).toString()}`)
+            },
+            awards(id, options = {team: [], winner:[]}){
+                return api.get(`/events/${id}/awards?${new URLSearchParams(options).toString()}`)
+            },
+            divisions: {
+                matches(id, div, options = {team: [], round: [], instance: [], matchnum: []}){
+                    return api.get(`/events/${id}/divisions/${div}/matches?${new URLSearchParams(options).toString()}`)
+                },
+                finalistRankings(id, div, options = {team: [], rank: []}){
+                    return api.get(`/events/${id}/divisions/${div}/finalistRankings?${new URLSearchParams(options).toString()}`)
+                },
+                rankings(id,div, options = {team: [], rank: []}){
+                    return api.get(`/events/${id}/divisions/${div}/rankings?${new URLSearchParams(options).toString()}`)
+                }
+            }
+    }
+
+    teams = {
+        base(options = { id: [], number: [], event: [], registered: true, program: [], grade: [], country: [], myTeams: false}){
+            return api.get(`/teams?${new URLSearchParams(options).toString()}`)
+        },
+        ID(id){
+            return api.get(`/teams/${id}`)
+        },
+        events(id, options = {sku: [], season: [], start: "", end: "", level: []}){
+            return api.get(`/teams/${id}/events?${new URLSearchParams(options).toString()}`)
+        },
+        matches(id){
+            return api.get(`/teams/${id}/matches`)
+        },
+        rankings(id){
+            return api.get(`/teams/${id}/rankings`)
+        },
+        skills(id){
+            return api.get(`/teams/${id}/skills`)
+        },
+        awards(id){
+            return api.get(`/teams/${id}/awards`)
+        }
+    }
+
+    program = {
+        base(){
+            return api.get(`/programs`)
+        },
+        ID(id){
+            return api.get(`/programs/${id}`)
+        }
+    }
+
+    season = {
+        base(){
+            return api.get(`/seasons`)
+        },
+        ID(id){
+            return api.get(`/seasons/${id}`)
+        },
+        events(id){
+            return api.get(`/seasons/${id}/events`)
+        }
+    }
+}
 
 module.exports = {
-    //Events
-    async init(token) {
-        ap.init(token)
-    },
-    swagger,
-    async events(__query) {
-        if (!__query) { __query = "" };
-        return await ap.fetch(url+"/events" + __query)
-    },
-    async event(id, __query) {
-        if (!__query) { __query = "" };
-        return await ap.fetch(url + "/events/" + id + __query)
-    },
-    async event_teams(id, __query) {
-        if (!__query) { __query = "" };
-        return await ap.fetch(url + "/events/" + id + "/teams" + __query)
-    },
-    async event_skills(id, __query) {
-        if (!__query) { __query = "" }
-        return await ap.fetch(url + "/events/" + id + "/skills" + __query)
-    },
-    async event_awards(id, __query) {
-        if (!__query) { __query = "" }
-        return await ap.fetch(url + "/events/" + id + "/awards" + __query)
-    },
-    async event_divisions(id, div, __query) {
-        if (!__query) { __query = "" }
-        return await ap.fetch(url + "/events/" + id + "/divisions/" + div + "matches" + __query)
-    },
-    async event_finalrankings(id, __query) {
-        if (!__query) { __query = "" }
-        return await ap.fetch(url + "/events/" + id + "/divisions/" + div + "finalistRankings" + __query)
-    },
-    async event_rankings(id, __query) {
-        if (!__query) { __query = "" }
-        return await ap.fetch(url + "/events/" + id + "/divisions/" + div + "rankings" + __query)
-    },
-    //Teams
-    async teams(__query) {
-        if (!__query) { __query = "" }
-        return await ap.fetch(url + "/teams" + __query)
-    },
-    async team(id, __query) {
-        if (!__query) { __query = "" }
-        return await ap.fetch(url + "/teams/" + id + __query)
-    },
-    async team_events(id, __query) {
-        if (!__query) { __query = "" }
-        return await ap.fetch(url + "/teams/" + id + "/events" + __query)
-    },
-    async team_matches(id, __query) {
-        if (!__query) { __query = "" }
-        return await ap.fetch(url + "/teams/" + id + "/matches" + __query)
-    },
-    async team_rankings(id, __query) {
-        if (!__query) { __query = "" }
-        return await ap.fetch(url + "/teams/" + id + "/rankings" + __query)
-    },
-    async team_skills(id, __query) {
-        if (!__query) { __query = "" }
-        return await ap.fetch(url + "/teams/" + id + "/skills" + __query)
-    },
-    async team_awards(id, __query) {
-        if (!__query) { __query = "" }
-        return await ap.fetch(url + "/teams/" + id + "/awards" + __query)
-    },
-    //Programs
-    async programs(__query) {
-        if (!__query) { __query = "" }
-        return await ap.fetch(url + "/programs" + __query)
-    },
-    async program(id, __query) {
-        if (!__query) { __query = "" }
-        return await ap.fetch(url + "/programs/" + id + __query)
-    },
-    //Season
-    async season(__query) {
-        if (!__query) { __query = "" }
-        return await ap.fetch(url + "/seasons" + __query)
-    },
-    async seasons(id, __query) {
-        if (!__query) { __query = "" }
-        return await ap.fetch(url + "/seasons/" + id + __query)
-    },
-    async season_events(id, __query) {
-        if (!__query) { __query = "" }
-        return await ap.fetch(url + "/seasons/" + id + "/events" + __query)
-    }
+    API
 }
